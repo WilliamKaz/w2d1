@@ -2,7 +2,7 @@ var https = require('https');
 
 var args = process.argv.slice(2);
 
-function getAndPrintHTML (options) {
+function getAndPrintHTML (options, callback) {
   var receivedString = '';
   https.get(options, function (response) {
     // set encoding of received data to UTF-8
@@ -10,11 +10,15 @@ function getAndPrintHTML (options) {
     // the callback is invoked when a `data` chunk is received
     response.on('data', function (data) {
       receivedString += data;
-    });
-    response.on('end', function(){
-        console.log(receivedString);
+       callback(receivedString);
     });
   });
+
+}
+
+
+function printHTML (html) {
+  console.log(html + 'process complete');
 }
 
 var requestOptions = {
@@ -24,4 +28,4 @@ var requestOptions = {
 
 
 
-getAndPrintHTML(requestOptions);
+getAndPrintHTML(requestOptions, printHTML);
