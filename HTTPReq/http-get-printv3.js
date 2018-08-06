@@ -1,5 +1,10 @@
 var https = require('https');
 
+var mod = require('./module');
+var rev = require('./callbacks/print_reverse');
+var up = require('./callbacks/print_Uppercase');
+var low = require('./callbacks/print_Lowercase');
+
 var args = process.argv.slice(2);
 
 function getAndPrintHTML (options, callback) {
@@ -17,9 +22,7 @@ function getAndPrintHTML (options, callback) {
 }
 
 
-function printHTML (html) {
-  console.log(html + 'process complete');
-}
+
 
 var requestOptions = {
   host: args[0],
@@ -28,4 +31,8 @@ var requestOptions = {
 
 
 
-getAndPrintHTML(requestOptions, printHTML);
+getAndPrintHTML(requestOptions, mod);
+getAndPrintHTML(requestOptions, up);
+getAndPrintHTML(requestOptions, low);
+getAndPrintHTML(requestOptions, rev)  ;
+
